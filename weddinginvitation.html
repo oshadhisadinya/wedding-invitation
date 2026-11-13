@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lakshitha & Pahasara — Wedding Invitation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  /* ============ RESET & MAROON/CREAM THEME ============ */
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --bg-main: #f9f4e8;       /* Warm Cream */
+    --bg-card: #ffffff;       /* Pure Cream/White */
+    --text-main: #2a080c;     /* Very Dark Maroon for text */
+    --text-muted: #7a4a50;    /* Muted Maroon/Brown */
+    --maroon: #7a1f2b;        /* Royal Maroon */
+    --deep-maroon: #5c0a1f;   /* Deep Burgundy */
+    --gold: #c5a059;          /* Antique Gold */
+    --gold-light: #e6d2a3;    /* Light Gold */
+    --gold-dim: rgba(197, 160, 89, 0.2);
+  }
+  html { scroll-behavior:smooth; }
+  body { 
+    font-family:'Cormorant Garamond',serif; 
+    background: var(--bg-main); 
+    color: var(--text-main); 
+    overflow-x:hidden; 
+  }
+
+  /* ============ FLOATING PETALS ============ */
+  .petal {
+    position:fixed; top:-30px; pointer-events:none; z-index:0;
+    border-radius:50% 0 50% 0; opacity:.5;
+    animation:fall linear infinite;
+  }
+  .petal.maroon { background: radial-gradient(ellipse at center, var(--maroon), transparent); }
+  .petal.gold { background: radial-gradient(ellipse at center, var(--gold), transparent); }
+  
+  @keyframes fall {
+    0%   { transform:translateY(-30px) rotate(0) translateX(0); opacity:.6; }
+    100% { transform:translateY(105vh) rotate(360deg) translateX(60px); opacity:0; }
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    min-height:100vh; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; text-align:center; position:relative; padding:2rem;
+    background:
+      radial-gradient(ellipse at 15% 40%, rgba(122, 31, 43, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 60%, rgba(197, 160, 89, 0.08) 0%, transparent 50%),
+      var(--bg-main);
+  }
+  .pre-title {
+    font-size:1.1rem; font-style:italic; color:var(--text-muted);
+    letter-spacing:.3rem; text-transform:uppercase;
+    animation:fadeInDown 1s ease .2s both;
+  }
+  .couple-names {
+    font-family:'Great Vibes',cursive; color:var(--maroon);
+    font-size:clamp(3rem,9vw,6.5rem); line-height:1.1; margin:.3rem 0;
+    text-shadow: 2px 2px 4px rgba(122, 31, 43, 0.1);
+    animation:fadeInUp 1.2s ease .4s both;
+  }
+  .ampersand { font-family:'Playfair Display',serif; font-style:italic; font-size:.6em; color:var(--gold); }
+  .tagline { font-size:1.15rem; font-weight:300; letter-spacing:.1rem; color: var(--text-muted); animation:fadeInUp 1s ease .6s both; }
+
+  /* ============ ANIMATED COUPLE STAGE ============ */
+  .couple-stage {
+    position:relative; width:min(420px,90vw); height:230px;
+    margin:1.5rem auto .5rem; cursor:pointer;
+    filter: drop-shadow(0 8px 12px rgba(92, 10, 31, 0.15));
+  }
+  .figure {
+    position:absolute; bottom:0; width:130px; height:200px;
+  }
+  .groom  { left:-160px;  animation:walkInLeft  2s cubic-bezier(.34,1.2,.64,1) .8s forwards; }
+  .bride  { right:-160px; animation:walkInRight 2s cubic-bezier(.34,1.2,.64,1) .8s forwards; }
+
+  @keyframes walkInLeft  { to { left:30px; } }
+  @keyframes walkInRight { to { right:30px; } }
+
+  .couple-stage.met .groom { animation:sway 3s ease-in-out infinite; }
+  .couple-stage.met .bride { animation:sway 3s ease-in-out .5s infinite; }
+  @keyframes sway { 0%,100%{ transform:rotate(0);} 50%{ transform:rotate(2deg);} }
+
+  .veil { transform-origin:top center; animation:flutter 4s ease-in-out infinite; }
+  @keyframes flutter { 0%,100%{ transform:skewX(0);} 50%{ transform:skewX(-4deg);} }
+
+  .dress-shimmer { animation:shimmer 5s linear infinite; }
+  @keyframes shimmer { 0%{stop-color:#ffffff;} 50%{stop-color:#f9f4e8;} 100%{stop-color:#ffffff;} }
+
+  .couple-stage.dance .groom { animation:danceG 1s ease-in-out infinite !important; }
+  .couple-stage.dance .bride { animation:danceB 1s ease-in-out infinite !important; }
+  @keyframes danceG { 0%,100%{transform:translateY(0) rotate(-4deg);} 50%{transform:translateY(-14px) rotate(4deg);} }
+  @keyframes danceB { 0%,100%{transform:translateY(0) rotate(4deg);} 50%{transform:translateY(-14px) rotate(-4deg);} }
+
+  .dance-btn {
+    font-family:'Playfair Display',serif; font-size:.85rem; letter-spacing:.15rem;
+    text-transform:uppercase; padding:.7rem 1.8rem; margin-top:1rem;
+    background:transparent; color:var(--maroon); border:1.5px solid var(--maroon);
+    border-radius:50px; cursor:pointer; transition:.3s;
+    animation:fadeInUp 1s ease 1s both;
+  }
+  .dance-btn:hover { background:var(--maroon); color:var(--bg-main); box-shadow:0 0 20px rgba(122,31,43,.3); }
+
+  /* ============ HEART BURST ============ */
+  .heart-particle {
+    position:absolute; font-size:1.2rem; pointer-events:none; z-index:5;
+    animation:heartUp 1.6s ease-out forwards;
+  }
+  @keyframes heartUp {
+    0%   { opacity:1; transform:translateY(0) scale(.5); }
+    100% { opacity:0; transform:translateY(-120px) scale(1.4) rotate(var(--spin)); }
+  }
+
+  /* ============ SECTIONS ============ */
+  section { padding:5rem 2rem; max-width:900px; margin:0 auto; text-align:center; position:relative; z-index:1; }
+  .section-title { font-family:'Great Vibes',cursive; font-size:clamp(2.4rem,6vw,4rem); color:var(--maroon); margin-bottom:.5rem; }
+  .divider { display:flex; align-items:center; justify-content:center; gap:1rem; margin-bottom:2.5rem; }
+  .divider .line { width:80px; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .divider .diamond { width:8px; height:8px; background:var(--gold); transform:rotate(45deg); }
+
+  /* ============ MONOGRAM ============ */
+  .monogram svg { width:140px; height:140px; }
+  .monogram path {
+    fill:none; stroke:var(--maroon); stroke-width:2;
+    stroke-dasharray:600; stroke-dashoffset:600;
+  }
+  .monogram.visible path { animation:draw 3s ease forwards; }
+  .monogram text { fill: var(--maroon); }
+  @keyframes draw { to { stroke-dashoffset:0; } }
+
+  /* ============ COUNTDOWN ============ */
+  .countdown-section { background: var(--bg-card); border-radius:20px; padding:4rem 2rem; border: 1px solid var(--gold-dim); box-shadow: 0 10px 30px rgba(92,10,31,0.05); }
+  .countdown { display:flex; justify-content:center; gap:clamp(1rem,4vw,2.5rem); flex-wrap:wrap; }
+  .countdown-item { min-width:80px; }
+  .countdown-number {
+    font-family:'Playfair Display',serif; font-size:clamp(2.4rem,6vw,3.8rem);
+    font-weight:700; color:var(--maroon); display:inline-block;
+  }
+  .countdown-number.tick { animation:pop .4s ease; }
+  @keyframes pop { 0%{transform:scale(1);} 40%{transform:scale(1.15);} 100%{transform:scale(1);} }
+  .countdown-label { font-size:.8rem; text-transform:uppercase; letter-spacing:.2rem; color:var(--text-muted); margin-top:.3rem; }
+
+  /* ============ DETAIL CARDS ============ */
+  .details-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:2rem; }
+  .detail-card {
+    background:var(--bg-card); border-radius:16px; padding:2.5rem 2rem;
+    border:1px solid var(--gold-dim);
+    transition:transform .3s, box-shadow .3s;
+  }
+  .detail-card:hover { 
+    transform:translateY(-6px); 
+    box-shadow:0 15px 35px rgba(92,10,31,0.1); 
+  }
+  .detail-icon { font-size:2.4rem; margin-bottom:.8rem; display:inline-block; animation:bob 3s ease-in-out infinite; }
+  .detail-card:nth-child(2) .detail-icon { animation-delay:.5s; }
+  .detail-card:nth-child(3) .detail-icon { animation-delay:1s; }
+  @keyframes bob { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
+  .detail-card h3 { font-family:'Playfair Display',serif; color:var(--maroon); margin-bottom:.6rem; font-size:1.4rem; }
+  .highlight { font-weight:600; color:var(--gold); font-size: 1.1rem; }
+
+  /* ============ TIMELINE ============ */
+  .timeline { position:relative; padding:2rem 0; }
+  .timeline::before {
+    content:''; position:absolute; left:50%; top:0; width:2px; height:0;
+    transform:translateX(-50%);
+    background:linear-gradient(to bottom, var(--gold-dim), var(--maroon));
+    transition:height 2.5s ease;
+  }
+  .timeline.visible::before { height:100%; }
+  .timeline-item { display:flex; align-items:center; margin-bottom:3rem; position:relative; }
+  .timeline-item:nth-child(even) { flex-direction:row-reverse; }
+  .timeline-content {
+    width:44%; background:var(--bg-card); padding:1.4rem 1.8rem; border-radius:12px;
+    border:1px solid var(--gold-dim);
+    opacity:0; transform:translateX(-30px); transition:.8s ease;
+  }
+  .timeline-item:nth-child(even) .timeline-content { transform:translateX(30px); }
+  .timeline.visible .timeline-content { opacity:1; transform:translateX(0); }
+  .timeline-dot {
+    position:absolute; left:50%; transform:translateX(-50%) scale(0);
+    width:16px; height:16px; background:var(--maroon); border-radius:50%;
+    border:3px solid var(--bg-main); box-shadow:0 0 0 3px var(--gold);
+    transition:transform .5s ease .4s; z-index:2;
+  }
+  .timeline.visible .timeline-dot { transform:translateX(-50%) scale(1); }
+  .timeline-year { font-family:'Playfair Display',serif; font-size:.8rem; font-weight:700; color:var(--gold); letter-spacing:.1rem; }
+  .timeline-content h4 { font-family:'Playfair Display',serif; color:var(--maroon); margin:.3rem 0; font-size:1.2rem; }
+  .timeline-content p { font-size:.95rem; line-height:1.5; color: var(--text-muted); }
+
+  /* ============ RSVP ============ */
+  .rsvp-section { background: var(--bg-card); border-radius:20px; padding:4rem 2rem; border: 1px solid var(--gold-dim); box-shadow: 0 10px 30px rgba(92,10,31,0.05); }
+  .rsvp-form { max-width:480px; margin:0 auto; display:flex; flex-direction:column; gap:1.1rem; }
+  .form-group { display:flex; flex-direction:column; text-align:left; }
+  .form-group label { font-family:'Playfair Display',serif; font-size:.9rem; color:var(--maroon); margin-bottom:.35rem; letter-spacing:.05rem; }
+  .form-group input, .form-group select, .form-group textarea {
+    font-family:'Cormorant Garamond',serif; font-size:1rem; padding:.75rem 1rem;
+    border:1px solid var(--gold-dim); border-radius:8px; background:var(--bg-main); color: var(--text-main); outline:none; transition:.3s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color:var(--maroon); box-shadow:0 0 0 3px rgba(122, 31, 43, 0.1);
+  }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-muted); opacity: 0.6; }
+  .radio-group { display:flex; gap:1.5rem; margin-top:.3rem; flex-wrap: wrap; }
+  .radio-group label { display:flex; align-items:center; gap:.4rem; font-size:1rem; cursor:pointer; color: var(--text-muted); }
+  .radio-group input { accent-color:var(--maroon); }
+  .submit-btn {
+    font-family:'Playfair Display',serif; font-size:1rem; letter-spacing:.15rem; text-transform:uppercase;
+    padding:1rem; background:linear-gradient(135deg,var(--maroon),var(--deep-maroon)); color:var(--bg-main);
+    border:none; border-radius:50px; cursor:pointer; transition:.3s; font-weight: 700;
+  }
+  .submit-btn:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(122,31,43,.4); }
+  .success-message { display:none; margin-top:1.2rem; padding:1.2rem; background:rgba(197,160,89,.15); border:1px solid var(--gold); border-radius:12px; color:var(--maroon); font-size:1.1rem; }
+  .success-message.show { display:block; animation:fadeInUp .6s ease; }
+
+  footer { text-align:center; padding:3rem 2rem; color:var(--text-muted); font-size:.9rem; letter-spacing:.1rem; }
+  .heart { color:var(--maroon); display:inline-block; animation:beat 1.4s ease infinite; }
+  @keyframes beat { 0%,100%{transform:scale(1);} 50%{transform:scale(1.25);} }
+
+  @keyframes fadeInUp   { from{opacity:0; transform:translateY(30px);} to{opacity:1; transform:translateY(0);} }
+  @keyframes fadeInDown { from{opacity:0; transform:translateY(-30px);} to{opacity:1; transform:translateY(0);} }
+  .fade-in { opacity:0; transform:translateY(30px); transition:.8s ease; }
+  .fade-in.visible { opacity:1; transform:translateY(0); }
+
+  @media (max-width:768px) {
+    .timeline::before { left:20px; }
+    .timeline-item, .timeline-item:nth-child(even) { flex-direction:column; align-items:flex-start; }
+    .timeline-content, .timeline-item:nth-child(even) .timeline-content { width:calc(100% - 50px); margin-left:50px; }
+    .timeline-dot { left:20px; }
+    .couple-stage { transform:scale(.85); }
+  }
+</style>
+</head>
+<body>
+
+<div id="petals"></div>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <p class="pre-title">Together with their families</p>
+  <h1 class="couple-names">Lakshitha <span class="ampersand">&</span> Pahasara</h1>
+  <p class="tagline">request the pleasure of your company at the celebration of their marriage</p>
+
+  <!-- ===== ANIMATED COUPLE (Maroon & Cream) ===== -->
+  <div class="couple-stage" id="coupleStage" title="Click the couple for hearts! 💕">
+
+    <!-- GROOM SVG (Royal Maroon Suit) -->
+    <svg class="figure groom" viewBox="0 0 130 200">
+      <rect x="52" y="120" width="12" height="60" rx="5" fill="#1a1a1a"/>
+      <rect x="68" y="120" width="12" height="60" rx="5" fill="#1a1a1a"/>
+      <ellipse cx="56" cy="182" rx="10" ry="5" fill="#0a0a0a"/>
+      <ellipse cx="76" cy="182" rx="10" ry="5" fill="#0a0a0a"/>
+      <!-- Maroon Suit -->
+      <path d="M45 70 Q42 125 50 128 L82 128 Q90 125 87 70 Q66 60 45 70Z" fill="var(--maroon)"/>
+      <path d="M60 72 L66 100 L72 72 Z" fill="#f9f4e8"/>
+      <!-- Gold Lapels -->
+      <path d="M58 70 L66 92 L60 70Z" fill="var(--gold)"/>
+      <path d="M74 70 L66 92 L72 70Z" fill="var(--gold)"/>
+      <path d="M60 74 L66 78 L72 74 L66 82Z" fill="var(--deep-maroon)"/>
+      <path d="M85 78 Q105 95 112 118" stroke="var(--maroon)" stroke-width="11" stroke-linecap="round" fill="none"/>
+      <circle cx="113" cy="120" r="6" fill="#e8c4a8"/>
+      <circle cx="66" cy="48" r="20" fill="#e8c4a8"/>
+      <path d="M46 44 Q50 24 66 24 Q84 24 86 44 Q78 34 66 34 Q54 34 46 44Z" fill="#1a1210"/>
+      <path d="M60 56 Q66 61 72 56" stroke="#b07a5a" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </svg>
+
+    <!-- BRIDE SVG (Cream/Ivory Dress with Maroon Accents) -->
+    <svg class="figure bride" viewBox="0 0 130 200">
+      <path class="veil" d="M52 30 Q20 60 26 150 Q40 140 46 100 Q44 60 52 40Z" fill="rgba(253,251,247,.7)"/>
+      <defs>
+        <linearGradient id="dressGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ffffff"/>
+          <stop class="dress-shimmer" offset="100%" stop-color="#f9f4e8"/>
+        </linearGradient>
+      </defs>
+      <path d="M52 78 Q40 140 18 185 L100 185 Q78 140 66 78 Q59 72 52 78Z" fill="url(#dressGrad)" stroke="var(--gold-light)" stroke-width="1"/>
+      <!-- Maroon Sash on Dress -->
+      <path d="M48 100 Q60 105 72 100 L70 106 Q60 110 50 106 Z" fill="var(--maroon)"/>
+      <path d="M50 62 Q48 80 52 84 L66 84 Q70 80 68 62 Q59 58 50 62Z" fill="#ffffff" stroke="var(--gold-light)"/>
+      <path d="M50 80 Q30 96 20 118" stroke="#e8c4a8" stroke-width="8" stroke-linecap="round" fill="none"/>
+      <!-- Maroon & Gold Bouquet -->
+      <circle cx="17" cy="122" r="5" fill="var(--maroon)"/>
+      <circle cx="24" cy="126" r="5" fill="var(--deep-maroon)"/>
+      <circle cx="14" cy="130" r="5" fill="var(--gold)"/>
+      <circle cx="21" cy="133" r="4" fill="#ffffff"/>
+      <circle cx="59" cy="42" r="18" fill="#e8c4a8"/>
+      <path d="M41 40 Q44 20 59 20 Q76 20 78 40 Q70 30 59 30 Q48 30 41 40Z" fill="#2a1f1a"/>
+      <circle cx="76" cy="26" r="9" fill="#2a1f1a"/>
+      <circle cx="76" cy="26" r="3" fill="var(--gold)"/>
+      <path d="M53 50 Q59 55 65 50" stroke="#b07a5a" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <button class="dance-btn" id="danceBtn">💃 Make Them Dance! 🕺</button>
+  <p class="tagline" style="margin-top:1rem; font-size:1rem; font-style:italic; color:var(--maroon);">Wednesday · 27th of January 2027 · Cinnamon Lakeside, Colombo</p>
+</section>
+
+<!-- ================= MONOGRAM ================= -->
+<section class="monogram fade-in">
+  <svg viewBox="0 0 200 200">
+    <path d="M60 100 Q60 60 100 60 Q140 60 140 100 Q140 140 100 140 Q60 140 60 100Z"/>
+    <text x="72" y="115" font-family="Great Vibes, cursive" font-size="48">L</text>
+    <text x="112" y="115" font-family="Great Vibes, cursive" font-size="48">P</text>
+  </svg>
+</section>
+
+<!-- ================= COUNTDOWN ================= -->
+<section class="countdown-section fade-in">
+  <h2 class="section-title">Save the Date</h2>
+  <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+  <p style="font-size:1.1rem; margin-bottom:2rem; color:var(--text-muted);">Six O'Clock in the Evening</p>
+  <div class="countdown">
+    <div class="countdown-item"><span class="countdown-number" id="d">000</span><div class="countdown-label">Days</div></div>
+    <div class="countdown-item"><span class="countdown-number" id="h">00</span><div class="countdown-label">Hours</div></div>
+    <div class="countdown-item"><span class="countdown-number" id="m">00</span><div class="countdown-label">Minutes</div></div>
+    <div class="countdown-item"><span class="countdown-number" id="s">00</span><div class="countdown-label">Seconds</div></div>
+  </div>
+</section>
+
+<!-- ================= DETAILS ================= -->
+<section class="fade-in">
+  <h2 class="section-title">Wedding Details</h2>
+  <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+  <div class="details-grid">
+    <div class="detail-card">
+      <div class="detail-icon">💒</div>
+      <h3>Ceremony</h3>
+      <p><span class="highlight">6:00 PM</span><br>Cinnamon Lakeside<br>Colombo 02</p>
+    </div>
+    <div class="detail-card">
+      <div class="detail-icon">🥂</div>
+      <h3>Reception</h3>
+      <p><span class="highlight">7:30 PM</span><br>Lakeside Ballroom<br>Dinner & Dancing</p>
+    </div>
+    <div class="detail-card">
+      <div class="detail-icon">👗</div>
+      <h3>Dress Code</h3>
+      <p><span class="highlight">Royal Formal</span><br>Maroon, Cream &<br>Gold Tones Encouraged</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LOVE STORY ================= -->
+<section class="fade-in">
+  <h2 class="section-title">Our Love Story</h2>
+  <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+  <div class="timeline" id="timeline">
+    <div class="timeline-item"><div class="timeline-content"><span class="timeline-year">2020</span><h4>First Meeting ☕</h4><p>A simple introduction that sparked a beautiful friendship.</p></div><div class="timeline-dot"></div></div>
+    <div class="timeline-item"><div class="timeline-content"><span class="timeline-year">2022</span><h4>First Date 🌹</h4><p>A sunset walk by Galle Face, where we knew it was meant to be.</p></div><div class="timeline-dot"></div></div>
+    <div class="timeline-item"><div class="timeline-content"><span class="timeline-year">2026</span><h4>The Proposal 💍</h4><p>Under the stars, a promise to spend forever together.</p></div><div class="timeline-dot"></div></div>
+    <div class="timeline-item"><div class="timeline-content"><span class="timeline-year">2027</span><h4>The Wedding 💐</h4><p>And now, we invite you to celebrate our forever at Cinnamon Lakeside.</p></div><div class="timeline-dot"></div></div>
+  </div>
+</section>
+
+<!-- ================= RSVP ================= -->
+<section class="rsvp-section fade-in">
+  <h2 class="section-title">RSVP</h2>
+  <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+  <p style="margin-bottom:1.8rem; color:var(--text-muted);">Kindly respond by <strong style="color:var(--maroon);">December 31st, 2026</strong></p>
+  <form class="rsvp-form" id="rsvpForm">
+    <div class="form-group"><label>Full Name</label><input type="text" id="name" required placeholder="Your full name"></div>
+    <div class="form-group"><label>Email</label><input type="email" id="email" required placeholder="your@email.com"></div>
+    <div class="form-group"><label>Will you attend?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="att" value="yes" required> Joyfully Accepts</label>
+        <label><input type="radio" name="att" value="no"> Regretfully Declines</label>
+      </div>
+    </div>
+    <div class="form-group"><label>Number of Guests</label><select id="guests"><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+    <div class="form-group"><label>Message for the Couple (Optional)</label><textarea id="msg" placeholder="Share your wishes..."></textarea></div>
+    <button type="submit" class="submit-btn">Send RSVP 💌</button>
+  </form>
+  <div class="success-message" id="successMsg">💕 Thank you! Your RSVP has been received!</div>
+</section>
+
+<footer>Made with <span class="heart">♥</span> by Lakshitha & Pahasara</footer>
+
+<script>
+/* ===== PETALS (Maroon & Gold) ===== */
+for (let i = 0; i < 16; i++) {
+  const p = document.createElement('div');
+  p.className = `petal ${i % 2 === 0 ? 'maroon' : 'gold'}`;
+  const size = Math.random() * 12 + 8;
+  p.style.cssText = `left:${Math.random()*100}vw; width:${size}px; height:${size}px;
+    animation-duration:${Math.random()*8+7}s; animation-delay:${Math.random()*10}s;`;
+  document.getElementById('petals').appendChild(p);
+}
+
+/* ===== COUPLE ANIMATIONS ===== */
+const stage = document.getElementById('coupleStage');
+setTimeout(() => { stage.classList.add('met'); burstHearts(8); }, 2900);
+stage.addEventListener('click', () => burstHearts(10));
+
+document.getElementById('danceBtn').addEventListener('click', () => {
+  stage.classList.toggle('dance');
+  burstHearts(6);
+});
+
+function burstHearts(n) {
+  const emojis = ['💕','✨','💖','🌟','💫'];
+  for (let i = 0; i < n; i++) {
+    const h = document.createElement('span');
+    h.className = 'heart-particle';
+    h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    h.style.left = (35 + Math.random() * 30) + '%';
+    h.style.bottom = '40%';
+    h.style.setProperty('--spin', (Math.random() * 60 - 30) + 'deg');
+    h.style.animationDelay = (Math.random() * 0.4) + 's';
+    stage.appendChild(h);
+    setTimeout(() => h.remove(), 2200);
+  }
+}
+
+/* ===== COUNTDOWN (Jan 27, 2027) ===== */
+const target = new Date('2027-01-27T18:00:00').getTime();
+let prevS = null;
+function tick() {
+  const diff = target - Date.now();
+  if (diff <= 0) { document.querySelector('.countdown').innerHTML = '<p style="font-size:1.4rem;color:var(--maroon)">💍 The Big Day is Here! 💍</p>'; return; }
+  const d = Math.floor(diff / 864e5), h = Math.floor(diff / 36e5) % 24, m = Math.floor(diff / 6e4) % 60, s = Math.floor(diff / 1e3) % 60;
+  setVal('d', String(d).padStart(3,'0'));
+  setVal('h', String(h).padStart(2,'0'));
+  setVal('m', String(m).padStart(2,'0'));
+  setVal('s', String(s).padStart(2,'0'));
+  if (s !== prevS) { const el = document.getElementById('s'); el.classList.remove('tick'); void el.offsetWidth; el.classList.add('tick'); prevS = s; }
+}
+function setVal(id, v) { document.getElementById(id).textContent = v; }
+tick(); setInterval(tick, 1000);
+
+/* ===== SCROLL REVEAL ===== */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add('visible');
+}), { threshold: 0.2 });
+document.querySelectorAll('.fade-in, .monogram, .timeline').forEach(el => io.observe(el));
+
+/* ===== RSVP ===== */
+document.getElementById('rsvpForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const data = {
+    name: name.value, email: email.value,
+    attending: document.querySelector('input[name="att"]:checked').value,
+    guests: guests.value, message: msg.value, at: new Date().toISOString()
+  };
+  console.log('RSVP:', data); 
+  e.target.style.display = 'none';
+  document.getElementById('successMsg').classList.add('show');
+  burstHearts(12);
+});
+</script>
+</body>
+</html>
